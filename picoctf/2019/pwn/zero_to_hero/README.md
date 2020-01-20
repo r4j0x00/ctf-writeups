@@ -154,3 +154,7 @@ unsigned __int64 sub_400BB3()
 * Input is taken through the read function, So we can have null bytes in our payload.
 * There is a null byte overflow or off by one bug while reading the description.
 * We have a double free in the delete superpower function as the pointer is not nulled after its free'd.
+
+## Exploitation
+Now that we have a double free bug, we could simply free it twice and do tcache poisoning and all but that won't work because it's using libc 2.29 and not libc 2.27.  
+There was a mitigation introduced in libc 2.28 because of which you can no longer double free chunks.
