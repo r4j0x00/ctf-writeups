@@ -145,4 +145,12 @@ unsigned __int64 sub_400BB3()
   }
   free(*((void **)&unk_602060 + v1));
   return __readfsqword(0x28u) ^ v2;
-}```
+}
+```
+
+* Looking at the main function, it leaks the address of system as we saw earlier.
+* Option 1 leads to create super power and option 2 leads to delete superpower.
+* We can only create chunks with size less then 0x408 and we can create only malloc 7 times which means we are limited to tcache sized chunks.
+* Input is taken through the read function, So we can have null bytes in our payload.
+* There is a null byte overflow or off by one bug while reading the description.
+* We have a double free in the delete superpower function as the pointer is not nulled after its free'd.
